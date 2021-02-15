@@ -5,6 +5,12 @@ const config = require("./config.json");
 //[1]เพิ่ม dialogflow-fulfillment library
 //[7] เพิ่ม Payload
 const { WebhookClient, Payload } = require("dialogflow-fulfillment");
+const LINE_MESSAGING_API = "https://api.line.me/v2/bot/message";
+const CHANEL_TOKEN = "qh1iUjdXCfmMGxo4JFxYzgK89CCXSu/Xyyr1LWkRovvrSo5xn4wC/1MF4uvdEwJ/61Qu7P+l58F/8PjfsimW12Y56/UjtVuRaLLBkDrUlpFP0F7kx3aqpOIoIK4m2kJvoSXHahGWzB+BZdHH8J7K0QdB04t89/1O/w1cDnyilFU="
+
+const LINE_HEADER = {
+  "Content-Type": "application/json",
+  "Authorization": `Bearer ${CHANEL_TOKEN}`};
 
 //[8] เพิ่ม firebase-admin และ initial database
 const firebase = require("firebase-admin");
@@ -251,10 +257,6 @@ exports.webhook = functions
       });
     };
     //ข้อมูลที่อยากเก็บไว้ส่งของ
-    
-    
-        
-
     //[3] ทำ intent map เข้ากับ function
     let intentMap = new Map();
     intentMap.set("view-menu", viewMenu);
@@ -262,6 +264,9 @@ exports.webhook = functions
     intentMap.set("view-menu-select - yes", viewMenuSelect);
 
     agent.handleRequest(intentMap);
+
+
+
   });
 
   exports.dbMonitor = functions
